@@ -111,8 +111,25 @@ plastic_data_all %>%
 
 ```{r Ex3, message = FALSE}
 # Write your code here to answer exercise 3
+plastic_data_all %>%
+  mutate(pct_mismanaged_plastic_ocean=mismanaged_plastic_ocean/mismanaged_plastic) %>%
+  group_by(region) %>%
+  summarise(median = median(pct_mismanaged_plastic_ocean))
 
 
+# Answer for Africa is NaN, it means the value is meaningless as mismanaged plastic value is NA for Africa.
+
+plastic_data_all %>%
+  mutate(pct_mismanaged_plastic_ocean=mismanaged_plastic_ocean/mismanaged_plastic) %>%
+  drop_na(pct_mismanaged_plastic_ocean)%>%
+  select(region, pct_mismanaged_plastic_ocean) %>%
+  filter(region == "Africa")
+  
+
+
+  
+
+  
 
 ```
 

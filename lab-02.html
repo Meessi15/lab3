@@ -460,7 +460,41 @@ plastic_data_all %&gt;%
 </div>
 <div id="ex-3." class="section level3">
 <h3>Ex 3.</h3>
-<pre class="r"><code># Write your code here to answer exercise 3</code></pre>
+<pre class="r"><code># Write your code here to answer exercise 3
+plastic_data_all %&gt;%
+  mutate(pct_mismanaged_plastic_ocean=mismanaged_plastic_ocean/mismanaged_plastic) %&gt;%
+  group_by(region) %&gt;%
+  summarise(median = median(pct_mismanaged_plastic_ocean))</code></pre>
+<pre><code>## # A tibble: 6 × 2
+##   region                            median
+##   &lt;chr&gt;                              &lt;dbl&gt;
+## 1 Africa                          NA      
+## 2 Asia                             0.00974
+## 3 Europe                           0.00846
+## 4 Latin America and The Caribbean  0.0307 
+## 5 North America                    0.00959
+## 6 Oceania                          0.0158</code></pre>
+<pre class="r"><code># Answer for Africa is NaN, it means the value is meaningless as mismanaged plastic value is NA for Africa.
+
+plastic_data_all %&gt;%
+  mutate(pct_mismanaged_plastic_ocean=mismanaged_plastic_ocean/mismanaged_plastic) %&gt;%
+  drop_na(pct_mismanaged_plastic_ocean)%&gt;%
+  select(region, pct_mismanaged_plastic_ocean) %&gt;%
+  filter(region == &quot;Africa&quot;)</code></pre>
+<pre><code>## # A tibble: 42 × 2
+##    region pct_mismanaged_plastic_ocean
+##    &lt;chr&gt;                         &lt;dbl&gt;
+##  1 Africa                     0.00363 
+##  2 Africa                     0.0123  
+##  3 Africa                     0       
+##  4 Africa                     0.0164  
+##  5 Africa                     0.0184  
+##  6 Africa                     0.000307
+##  7 Africa                     0.0104  
+##  8 Africa                     0       
+##  9 Africa                     0       
+## 10 Africa                     0.000389
+## # ℹ 32 more rows</code></pre>
 </div>
 <div id="ex-4." class="section level3">
 <h3>Ex 4.</h3>
